@@ -1,28 +1,24 @@
 import * as React from 'react';
 import { View, StyleSheet, StatusBar, Dimensions, ScrollView, Text } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
-
-import Departures from './Departures';
-import Gates from './Gates';
-import Customs from './Customs';
-import DutyFree from './DutyFree';
+import Arrivals from './Arrivals';
 
 
 
 const FirstRoute = () => (
-    <Departures />
+    <Arrivals />
 );
 const SecondRoute = () => (
-    <Gates />
+    <View style={[styles.scene, { backgroundColor: 'plum' }]} />
 );
 const ThirdRoute = () => (
-    <Customs />
+    <View style={[styles.scene, { backgroundColor: 'grey' }]} />
 );
 const FourthRoute = () => (
-    <DutyFree />
+    <View style={[styles.scene, { backgroundColor: 'silver' }]} />
 );
 
-export default class TabViewExample extends React.Component {
+export default class TabArrivals extends React.Component {
     state = {
         index: 0,
         routes: [
@@ -37,7 +33,6 @@ export default class TabViewExample extends React.Component {
         return (
             <TabView
                 navigationState={this.state}
-                // swipeEnabled={false}
                 renderTabBar={props =>
                     <TabBar
                         {...props}

@@ -16,50 +16,7 @@ export default class MyFlights extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar backgroundColor="#2e2e2e" barStyle="light-content" />
-                <View style={styles.card}>
-                    <View style={[styles.section, styles.brown]}>
-                        <ImageBackground style={styles.brownImage} source={require('../../assets/images/bg.png')}>
-                            <Text style={styles.labelOnBrownCell}>Where do you like to go?</Text>
-                        </ImageBackground>
-                    </View>
 
-                    <View style={[styles.section, styles.white]}>
-                        <View style={styles.row}>
-                            <View style={[styles.cell, { backgroundColor: '#fbfbf9' }]}>
-                                <Text style={styles.label}>From</Text>
-                                <Text style={styles.data}>EGYPT</Text>
-                                <Text style={styles.label}>NAG</Text>
-                            </View>
-                            <View style={[styles.cell, { backgroundColor: '#f3f4f0' }]}>
-                                <Text style={styles.label}>To</Text>
-                                <Text style={styles.data}>INDIA</Text>
-                                <Text style={styles.label}>ATZ</Text>
-                            </View>
-                        </View>
-
-                        <View style={[styles.row, { backgroundColor: '#f7f7f5' }]}>
-                            <View style={styles.cell}>
-                                <Text style={styles.label}>Traveller</Text>
-                                <Text style={styles.data2}>1 Adult</Text>
-                            </View>
-                            <View style={styles.cell}>
-                                <Text style={styles.label}>Class</Text>
-                                <Text style={styles.data2}>Economy</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.row}>
-                            <View style={[styles.cell, { borderBottomLeftRadius: 20, borderBottomRightRadius: 20, }]}>
-                                <Text style={styles.labelSmall}>Connecting 2 or more stops</Text>
-                                <Text style={styles.labelOrange}>AIR INDIA, EMIRATES, EGYPT AIR</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <TouchableOpacity style={styles.roundButton}>
-                        <Image source={require('../../assets/images/plane.png')} style={{ width: 28, height: 28 }} />
-                    </TouchableOpacity>
-                </View>
             </View>
         )
     }

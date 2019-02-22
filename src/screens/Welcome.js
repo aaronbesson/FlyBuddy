@@ -208,7 +208,7 @@ export default class Login extends Component {
 
               <Text style={styles.h3}>Welcome to</Text>
               <Text style={styles.h2}>FlyBuddy</Text>
-              <View style={{ width: '100%', marginTop: 60 }}>
+              <View style={{ width: '100%', marginTop: '10%' }}>
 
                 <InputField
                   placeholder="Email"

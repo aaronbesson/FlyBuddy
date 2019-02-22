@@ -2,7 +2,7 @@ import React from 'react';
 import {
   AppRegistry, StyleSheet, ActivityIndicator, Image,
   ListView, Text, View, Alert, Platform, TextInput, Button,
-  TouchableOpacity, AsyncStorage, ScrollView, ImageBackground
+  TouchableOpacity, AsyncStorage, ScrollView, ListItem
 } from 'react-native';
 import firebase from 'firebase';
 import { w, h, totalSize } from '../api/Dimensions';
@@ -10,8 +10,6 @@ import Moment from 'react-moment';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Modal from 'react-native-modal';
-import Lightbox from 'react-native-lightbox';
-import Expand from 'react-native-simple-expand';
 
 export default class Departures extends React.Component {
 
@@ -29,6 +27,7 @@ export default class Departures extends React.Component {
       myKey: null,
       text: '',
       isModalVisible: false,
+      rowData: '',
     }
 
     this.arrayholder = [];
@@ -66,6 +65,8 @@ export default class Departures extends React.Component {
     })
     this.saveKey(text)
   }
+
+
 
   ListViewItemSeparator = () => {
     return (
@@ -112,6 +113,44 @@ export default class Departures extends React.Component {
     }
   }
 
+  renderFlightItem = () => {
+    return (
+      <View style={{ marginBottom: 20, }}>
+        <TouchableOpacity style={styles.flightCard} onPress={this._toggleModal}>
+          <View style={{ alignItems: 'center', justifyContent: 'center', width: '25%', padding: 10 }}>
+            <View style={styles.iconsBk}><MaterialCommunityIcons name="airplane-takeoff" size={32} color='white' /></View>
+            <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold' }}>{rowData.departure.iataCode}</Text>
+            <Moment element={Text} fromNow style={{ textAlign: 'center', fontSize: 11, color: 'white' }}>{rowData.departure.scheduledTime}</Moment>
+          </View>
+          <View style={{ alignItems: 'center', justifyContent: 'center', width: '50%', padding: 10 }}>
+            <Text style={{ textAlign: 'center', fontSize: 14, color: 'white' }}>{rowData.airline.name}</Text>
+            <TouchableOpacity style={styles.numberBk} onPress={this.getKey.bind(this)}>
+              <Text style={{ textAlign: 'center', fontSize: 21, color: 'white', fontWeight: 'bold' }}>{rowData.flight.iataNumber}</Text>
+            </TouchableOpacity>
+            <Image source={require('../../assets/images/arrowLine.png')} style={{ marginTop: 10, }} />
+
+            <Text style={{ textAlign: 'center', fontSize: 21, marginTop: 10, color: 'white', fontWeight: 'bold' }}>Gate: {rowData.departure.gate}</Text>
+            <Moment format="D MMM YYYY HH:MM" element={Text} style={{ textAlign: 'center', color: 'white' }}>{rowData.departure.scheduledTime}</Moment>
+            <View style={styles.statusBk}>
+              <Text style={{ fontSize: 12, color: 'white' }}>Status: {rowData.status}</Text>
+            </View>
+          </View>
+          <View style={{
+            alignItems: 'center', justifyContent: 'center',
+            width: '25%', padding: 10,
+          }}>
+            <View style={styles.iconsBk}>
+              <MaterialCommunityIcons name="airplane-landing" size={32} color='white' /></View>
+            <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold' }}>{rowData.arrival.iataCode}</Text>
+            <Moment element={Text} fromNow style={{ textAlign: 'center', fontSize: 11, color: 'white' }}>{rowData.arrival.scheduledTime}</Moment>
+
+          </View>
+        </TouchableOpacity>
+
+      </View>
+    );
+  }
+
   render() {
     if (this.state.isSignedIn) {
       const user = firebase.auth().currentUser || {};
@@ -123,6 +162,7 @@ export default class Departures extends React.Component {
         );
       }
       return <View style={styles.MainContainer}>
+
         <View style={{
           flexDirection: 'row',
           padding: 15,
@@ -167,84 +207,19 @@ export default class Departures extends React.Component {
           </TouchableOpacity>
 
         </View>
-
-        <View style={{ height: '100%', paddingBottom: '40%' }}>
-          <ListView
+        <ListView style={{ height: '78%', }}
+          dataSource={this.state.dataSource}
+          value={this.state.myKey}
+          renderRow={this.renderFlightItem.bind(this)}
+        />
+        <Modal style={styles.flightCardBig} isVisible={this.state.isModalVisible} visible={!!this.state.selectedRow}>
+          <ListItem
+            style={{ height: '78%', }}
             dataSource={this.state.dataSource}
             value={this.state.myKey}
-            renderRow={(rowData) =>
-              <View style={{ marginBottom: 20, }}>
-                <Lightbox underlayColor='#2e2e2e' renderHeader={close => (
-                  <View><TouchableOpacity
-                    onPress={close}
-                    style={
-                      {
-                        position: 'absolute',
-                        right: 20,
-                        top: 20,
-                      }
-                    }>
-                    <Ionicons name='md-close-circle' size='32' color='grey' />
-                  </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        position: 'absolute',
-                        left: 20,
-                        top: 30,
-                      }}
-                      onPress={() => this.setState({ open: !this.state.open })}>
-                      <Text style={{ color: 'white', fontSize: 21, }}>View Flight Details</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}>
-                  <View>
-                    <View style={styles.flightCard}>
-                      <View style={{ flexDirection: 'row', }}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', width: '25%', padding: 10 }}>
-                          <View style={styles.iconsBk}><MaterialCommunityIcons name="airplane-takeoff" size={32} color='white' /></View>
-                          <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold' }}>{rowData.departure.iataCode}</Text>
-                          <Moment element={Text} fromNow style={{ textAlign: 'center', fontSize: 11, color: 'white' }}>{rowData.departure.scheduledTime}</Moment>
-                        </View>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', width: '50%', padding: 10 }}>
-                          <Text style={{ textAlign: 'center', fontSize: 14, color: 'white' }}>{rowData.airline.name}</Text>
-                          <TouchableOpacity style={styles.numberBk} onPress={this.getKey.bind(this)}>
-                            <Text style={{ textAlign: 'center', fontSize: 21, color: 'white', fontWeight: 'bold' }}>{rowData.flight.iataNumber}</Text>
-                          </TouchableOpacity>
-                          <Image source={require('../../assets/images/arrowLine.png')} style={{ marginTop: 10, }} />
-
-                          <Text style={{ textAlign: 'center', fontSize: 21, marginTop: -20, color: 'white', fontWeight: 'bold' }}>Gate: {rowData.departure.gate}</Text>
-                          <Moment format="D MMM YYYY HH:MM" element={Text} style={{ textAlign: 'center', color: 'white' }}>{rowData.departure.scheduledTime}</Moment>
-                          <TouchableOpacity style={styles.statusBk}>
-                            <Text style={{ fontSize: 12, color: 'white' }}>Status: {rowData.status}</Text>
-                          </TouchableOpacity>
-                        </View>
-                        <View style={{
-                          alignItems: 'center', justifyContent: 'center',
-                          width: '25%', padding: 10,
-                        }}>
-                          <View style={styles.iconsBk}>
-                            <MaterialCommunityIcons name="airplane-landing" size={32} color='white' /></View>
-                          <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold' }}>{rowData.arrival.iataCode}</Text>
-                          <Moment element={Text} fromNow style={{ textAlign: 'center', fontSize: 11, color: 'white' }}>{rowData.arrival.scheduledTime}</Moment>
-
-                        </View>
-                      </View>
-                      <Expand value={this.state.open} style={styles.expand}>
-                        <View style={{ padding: 15, }}>
-                          <Text style={{ fontSize: 15, color: 'white' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
-                        </View>
-                      </Expand>
-                    </View>
-
-                  </View>
-
-                </Lightbox>
-              </View>
-
-            }
-
+            renderRow={this.renderFlightItem(this)}
           />
-        </View>
+        </Modal>
       </View>;
     }
   }
@@ -336,9 +311,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 8,
     elevation: 1,
+    flexDirection: 'row',
   },
-  expand: {
+  flightCardBig: {
+    backgroundColor: '#444444',
+    padding: 0,
     paddingBottom: 20,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderColor: '#fff',
+    borderWidth: 0,
+    borderRadius: 10,
+    margin: '8%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 1,
+    flexDirection: 'row',
   },
   button: {
     width: '25%',

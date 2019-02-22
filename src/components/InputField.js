@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   containerError: {
     backgroundColor: '#fff',
     borderWidth: 8,
-    borderColor: 'plum',
+    borderColor: 'brown',
   },
   inputText: {
     color: '#646464',

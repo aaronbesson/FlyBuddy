@@ -1,143 +1,96 @@
 import React, { Component } from 'react';
+import { View, Text, StyleSheet, TouchableHighlight, ListView, Image, Modal, Linking } from 'react-native';
 
-import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
+var Dimensions = require('Dimensions')
+var { width, height } = Dimensions.get('window')
 
-export default class MyProject extends Component {
- 
+export default class MyListView extends React.Component {
   constructor(props) {
-
-    super(props);
-
+    super(props)
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
-
-      isLoading: true,
-      text: '',
-    
+      modalVisible: false,
+      myFlight: ''
     }
-
-    this.arrayholder = [] ;
-  }
- 
-  componentDidMount() {
- 
-    return fetch('https://reactnativecode.000webhostapp.com/FruitsList.php')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
-        }, function() {
-
-          // In this block you can do something with new state.
-          this.arrayholder = responseJson ;
-
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-      
   }
 
-  GetListViewItem (fruit_name) {
-    
-   Alert.alert(fruit_name);
-  
+  setModalVisible(visible, img) {
+    this.setState({ modalVisible: visible, myFlight: iataNumber }); // set current image path to show it in modal
   }
-  
-   SearchFilterFunction(text){
-     
-     const newData = this.arrayholder.filter(function(item){
-         const itemData = item.fruit_name.toUpperCase()
-         const textData = text.toUpperCase()
-         return itemData.indexOf(textData) > -1
-     })
-     this.setState({
-         dataSource: this.state.dataSource.cloneWithRows(newData),
-         text: text
-     })
- }
- 
-  ListViewItemSeparator = () => {
+
+  renderRow(rowData) {
+    const img = rowData.image
     return (
-      <View
-        style={{
-          height: .5,
-          width: "100%",
-          backgroundColor: "#000",
-        }}
-      />
-    );
-  }
- 
- 
-  render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
+      <TouchableHighlight style={styles.containerCell}
+        // onPress={() => Linking.openURL(img)}
+        onPress={() => { this.setModalVisible(true, img) }} // pass image scr to function
+      >
+        <View>
+          <Image
+            //  resizeMode={Image.resizeMode.contain}
+            //  resizeMethod={"scale"}
+            style={{ width: width, height: 180, }}
+            source={{ uri: img }}
+          />
+          <View style={styles.footerContainer}>
+            <View
+              style={styles.imageUser}
+            >
+              <Image
+                style={styles.imageAvatar}
+                //   source={{ uri: rowData.user }}
+                source={require('../assets/icons/footer-avatar.png')}
+
+              />
+            </View>
+            <View style={styles.footerTextContainer}>
+              <Text style={{ color: 'blue' }}           //I can see my photos in webview
+                onPress={() => Linking.openURL(img)}>
+                Google
+                            </Text>
+              <Text style={styles.text}>{rowData.food}</Text>
+              <Text style={[styles.text, styles.textTitle]}>{rowData.title}</Text>
+              <Text style={[styles.text, styles.textBy]}>By {rowData.by}</Text>
+            </View>
+          </View>
         </View>
-      );
-    }
- 
+      </TouchableHighlight>
+    )
+  }
+  render() {
+    // const img = rowData.image
     return (
- 
-      <View style={styles.MainContainer}>
+      <View style={styles.container}>
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { alert("Modal has been closed."), this.setModalVisible(!this.state.modalVisible) }}
+        >
+          <View style={{ marginTop: 22 }}>
+            <View>
+              <Image
+                //  resizeMode={Image.resizeMode.contain}
+                //  resizeMethod={"scale"}
+                style={{ width: width, height: 180, }}
+                source={{ uri: this.state.myFlight }}               // use myFlight scr to show on clicking list item
+              />
 
-      <TextInput 
-       style={styles.TextInputStyleClass}
-       onChangeText={(text) => this.SearchFilterFunction(text)}
-       value={this.state.text}
-       underlineColorAndroid='transparent'
-       placeholder="Search Here"
-        />
- 
+              <TouchableHighlight onPress={() => {
+                this.setModalVisible(!this.state.modalVisible)
+              }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+
+            </View>
+          </View>
+        </Modal>
         <ListView
- 
+          style={styles.listContainer}
+          renderRow={this.renderRow.bind(this)}
           dataSource={this.state.dataSource}
- 
-          renderSeparator= {this.ListViewItemSeparator}
- 
-          renderRow={(rowData) => <Text style={styles.rowViewContainer} 
-
-          onPress={this.GetListViewItem.bind(this, rowData.fruit_name)} >{rowData.fruit_name}</Text>}
-
-          enableEmptySections={true}
-
-          style={{marginTop: 10}}
- 
         />
- 
       </View>
     );
   }
 }
- 
-const styles = StyleSheet.create({
- 
- MainContainer :{
-
-  justifyContent: 'center',
-  flex:1,
-  margin: 7,
- 
-  },
- 
- rowViewContainer: {
-   fontSize: 17,
-   padding: 10
-  },
-
-  TextInputStyleClass:{
-        
-   textAlign: 'center',
-   height: 40,
-   borderWidth: 1,
-   borderColor: '#009688',
-   borderRadius: 7 ,
-   backgroundColor : "#FFFFFF"
-        
-   }
- 
-});
