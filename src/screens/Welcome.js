@@ -6,6 +6,7 @@ import {
 import InputField from "../components/InputField";
 import { w, h, totalSize } from '../api/Dimensions';
 import Firebase from '../api/Firebase';
+import Continue from './Register/Continue';
 
 const email = require('../../assets/email.png');
 const password = require('../../assets/password.png');
@@ -229,18 +230,16 @@ export default class Login extends Component {
                   focus={this.changeInputFocus}
                   icon={password}
                 />
-                <View style={{ flex: 1, }}>
-                  <TouchableOpacity
-                    onPress={this.emailLogin}
-                    style={styles.button}
-                    activeOpacity={0.6}
-                    isLogin={this.state.isLogin}
-                  >
-                    {this.props.isLogin
-                      ? <ActivityIndicator size="large" style={styles.spinner} color='white' />
-                      : <Text style={styles.text}>Login</Text>}
-                  </TouchableOpacity>
-                </View>
+                <View><TouchableOpacity
+                  onPress={this.emailLogin}
+                  style={styles.button}
+                  activeOpacity={0.6}
+                  isLogin={this.state.isLogin}
+                >
+                  {this.props.isLogin
+                    ? <ActivityIndicator size="large" style={styles.spinner} color='white' />
+                    : <Text style={styles.text}>Login</Text>}
+                </TouchableOpacity></View>
               </View>
 
 
@@ -278,8 +277,8 @@ const styles = StyleSheet.create({
   textContainer: {
     width: w(100),
     flexDirection: 'row',
-    marginTop: 60,
-    marginBottom: 60,
+    paddingTop: 60,
+    marginBottom: 20,
   },
   email: {
     marginBottom: 20,
@@ -318,6 +317,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: w(1),
+    paddingHorizontal: w(5),
     backgroundColor: '#003fd1',
     borderRadius: 45,
     marginTop: h(3),

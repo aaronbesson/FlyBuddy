@@ -33,7 +33,7 @@ export default class Arrivals extends React.Component {
 
 
     componentDidMount() {
-        return fetch('http://aviation-edge.com/v2/public/timetable?key=f42d0e-44642c&iataCode=POS&type=arrival')
+        return fetch('http://aviation-edge.com/v2/public/timetable?key=775ce7-ca82c1&iataCode=POS&type=arrival')
             .then((response) => response.json())
             .then((responseJson) => {
                 let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -71,7 +71,6 @@ export default class Arrivals extends React.Component {
                     height: .5,
                     width: "100%",
                     backgroundColor: "#000",
-
                 }}
             />
         );
@@ -162,7 +161,7 @@ export default class Arrivals extends React.Component {
                         style={{ position: 'absolute', right: 30, top: -10, zIndex: 999 }}
                         onPress={this.resetKey.bind(this)}
                     >
-                        <Ionicons name='ios-close' size='36' color='#666' />
+                        <Ionicons name='ios-close' size={36} color='#666' />
                     </TouchableOpacity>
 
                 </View>
@@ -182,7 +181,7 @@ export default class Arrivals extends React.Component {
                                     <TouchableOpacity style={styles.numberBk} onPress={this.getKey.bind(this)}>
                                         <Text style={{ textAlign: 'center', fontSize: 21, color: 'white', fontWeight: 'bold' }}>{rowData.flight.iataNumber}</Text>
                                     </TouchableOpacity>
-                                    <Image source={require('../../assets/images/arrowLine.png')} style={{ marginTop: 10, }} />
+                                    <Image source={require('../../assets/images/arrivalLine.png')} style={{ marginTop: 10, }} />
 
                                     <Text style={{ textAlign: 'center', fontSize: 21, marginTop: -20, color: 'white', fontWeight: 'bold' }}>Gate: {rowData.departure.gate}</Text>
                                     <Moment format="D MMM YYYY HH:MM" element={Text} style={{ textAlign: 'center', color: 'white' }}>{rowData.departure.scheduledTime}</Moment>
@@ -314,7 +313,7 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontWeight: '700',
-        fontSize: totalSize(2.1),
+        fontSize: 15,
     },
     instructions: {
         marginLeft: 20,

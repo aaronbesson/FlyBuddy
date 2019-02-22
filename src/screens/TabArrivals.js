@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { View, StyleSheet, StatusBar, Dimensions, ScrollView, Text } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+
+import Gates from './Gates';
+import Customs from './Customs';
+import DutyFree from './DutyFree';
 import Arrivals from './Arrivals';
 
 
@@ -9,13 +13,13 @@ const FirstRoute = () => (
     <Arrivals />
 );
 const SecondRoute = () => (
-    <View style={[styles.scene, { backgroundColor: 'plum' }]} />
+    <Gates />
 );
 const ThirdRoute = () => (
-    <View style={[styles.scene, { backgroundColor: 'grey' }]} />
+    <Customs />
 );
 const FourthRoute = () => (
-    <View style={[styles.scene, { backgroundColor: 'silver' }]} />
+    <DutyFree />
 );
 
 export default class TabArrivals extends React.Component {
@@ -24,48 +28,55 @@ export default class TabArrivals extends React.Component {
         routes: [
             { key: 'first', title: 'Flights' },
             { key: 'second', title: 'Gates' },
-            { key: 'third', title: 'Customs' },
+            { key: 'third', title: 'Immigration' },
             { key: 'fourth', title: 'Duty Free' },
         ],
     };
 
     render() {
         return (
-            <TabView
-                navigationState={this.state}
-                renderTabBar={props =>
-                    <TabBar
-                        {...props}
-                        style={{
-                            backgroundColor: '#000',
-                            borderRadius: 10,
-                            borderBottomStartRadius: 0,
-                            borderBottomEndRadius: 0,
-                        }}
-                        indicatorStyle={{
-                            backgroundColor: '#2e2e2e', height: 48, borderRadius: 10,
-                            borderBottomStartRadius: 0,
-                            borderBottomEndRadius: 0,
-                        }}
-                        renderLabel={({ route, focused, color }) => (
-                            <Text style={{ color: 'white', padding: 7 }}>
-                                {route.title}
-                            </Text>
-                        )}
-                    />
-                }
-                renderScene={SceneMap({
-                    first: FirstRoute,
-                    second: SecondRoute,
-                    third: ThirdRoute,
-                    fourth: FourthRoute
-                })}
-                onIndexChange={index =>
-                    this.setState({ index, out: this.state.routes[index].out })
-                }
-                initialLayout={{ width: Dimensions.get('window').width }}
-                style={styles.container}
-            />
+            <View style={{
+                flex: 1,
+                backgroundColor: '#000',
+            }}>
+                <TabView
+                    navigationState={this.state}
+                    initialLayout={{ width: Dimensions.get('window').width }}
+                    // swipeEnabled={false}
+                    renderTabBar={props =>
+                        <TabBar
+                            {...props}
+                            style={{
+                                backgroundColor: '#000',
+                                borderBottomStartRadius: 0,
+                                borderBottomEndRadius: 0,
+                            }}
+                            indicatorStyle={{
+                                backgroundColor: '#2e2e2e', height: 48, borderRadius: 10,
+                                borderBottomStartRadius: 0,
+                                borderBottomEndRadius: 0,
+                                shadowOpacity: 0
+                            }}
+                            renderLabel={({ route, focused, color }) => (
+                                <Text style={{ color: 'white', paddingVertical: 7 }}>
+                                    {route.title}
+                                </Text>
+                            )}
+                        />
+                    }
+                    renderScene={SceneMap({
+                        first: FirstRoute,
+                        second: SecondRoute,
+                        third: ThirdRoute,
+                        fourth: FourthRoute
+                    })}
+                    onIndexChange={index =>
+                        this.setState({ index, out: this.state.routes[index].out })
+                    }
+                    initialLayout={{ width: Dimensions.get('window').width }}
+                    style={styles.container}
+                />
+            </View>
         );
     }
 }
@@ -73,27 +84,5 @@ export default class TabArrivals extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'black',
-        marginTop: StatusBar.currentHeight
-    },
-    scene: {
-        height: 1000,
-        width: 400,
-    },
-    news: {
-        backgroundColor: '#2e2e2e',
-        borderRadius: 10,
-        borderBottomStartRadius: 0,
-        borderBottomEndRadius: 0,
-        width: 160,
-        height: 65,
-        marginRight: 10,
-        overflow: 'hidden',
-        paddingTop: 10,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 1,
     },
 });

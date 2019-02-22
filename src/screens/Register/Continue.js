@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
-import {w, h, totalSize} from "../../api/Dimensions";
+import { w, h, totalSize } from "../../api/Dimensions";
 
 export default class Continue extends Component {
   render() {
@@ -11,8 +11,8 @@ export default class Continue extends Component {
         onPress={this.props.click}
         style={styles.button}>
         {this.props.isCreating
-        ? <ActivityIndicator size="large" style={styles.spinner} color='white' />
-        : <Text style={styles.text}>Continue</Text>}
+          ? <ActivityIndicator size="large" style={styles.spinner} color='white' />
+          : <Text style={styles.text}>Continue</Text>}
       </TouchableOpacity>
     );
   }
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: w(2),
-    backgroundColor: '#8dc53e',
+    backgroundColor: '#003fd1',
     borderRadius: 45,
     marginTop: h(3),
   },
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     paddingVertical: h(1),
-    fontSize: totalSize(2.2),
+    fontSize: 16,
   }
 });

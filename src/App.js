@@ -30,7 +30,7 @@ background-color: ${props => props.theme.BLACK};
 
 const StatusBarAndroid = styled.View`
 height: 24;
-background-color: ${props => props.theme.BLUE};
+background-color: ${props => props.theme.BLACK};
 `;
 
 class RootContainer extends Component {
@@ -38,11 +38,15 @@ class RootContainer extends Component {
     return (
       <ThemeProvider theme={colors}>
         <FormattedWrapper>
+
           <Root>
+
             <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent />
             {Platform.OS === 'android' && Platform.Version >= 20 ? <StatusBarAndroid /> : null}
             <Navigator />
+
           </Root>
+
         </FormattedWrapper>
       </ThemeProvider>
     );

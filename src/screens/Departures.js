@@ -36,7 +36,7 @@ export default class Departures extends React.Component {
 
 
   componentDidMount() {
-    return fetch('http://aviation-edge.com/v2/public/timetable?key=f42d0e-44642c&iataCode=POS&type=departure')
+    return fetch('http://aviation-edge.com/v2/public/timetable?key=775ce7-ca82c1&iataCode=POS&type=departure')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -163,12 +163,12 @@ export default class Departures extends React.Component {
             style={{ position: 'absolute', right: 30, top: -10, zIndex: 999 }}
             onPress={this.resetKey.bind(this)}
           >
-            <Ionicons name='ios-close' size='36' color='#666' />
+            <Ionicons name='ios-close' size={36} color='#666' />
           </TouchableOpacity>
 
         </View>
 
-        <View style={{ height: '100%', paddingBottom: '40%' }}>
+        <View style={{ height: '100%', paddingBottom: '20%' }}>
           <ListView
             dataSource={this.state.dataSource}
             value={this.state.myKey}
@@ -184,7 +184,7 @@ export default class Departures extends React.Component {
                         top: 20,
                       }
                     }>
-                    <Ionicons name='md-close-circle' size='32' color='grey' />
+                    <Ionicons name='md-close-circle' size={32} color='grey' />
                   </TouchableOpacity>
                     <TouchableOpacity
                       style={{
@@ -212,10 +212,10 @@ export default class Departures extends React.Component {
                           </TouchableOpacity>
                           <Image source={require('../../assets/images/arrowLine.png')} style={{ marginTop: 10, }} />
 
-                          <Text style={{ textAlign: 'center', fontSize: 21, marginTop: -20, color: 'white', fontWeight: 'bold' }}>Gate: {rowData.departure.gate}</Text>
+                          <Text style={{ textAlign: 'center', fontSize: 21, marginTop: -10, color: 'white', fontWeight: 'bold' }}>Gate: {rowData.departure.gate}</Text>
                           <Moment format="D MMM YYYY HH:MM" element={Text} style={{ textAlign: 'center', color: 'white' }}>{rowData.departure.scheduledTime}</Moment>
                           <TouchableOpacity style={styles.statusBk}>
-                            <Text style={{ fontSize: 12, color: 'white' }}>Status: {rowData.status}</Text>
+                            <Text style={{ fontSize: 12, color: 'white', textTransform: 'uppercase' }}>Status: {rowData.status}</Text>
                           </TouchableOpacity>
                         </View>
                         <View style={{
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontWeight: '700',
-    fontSize: totalSize(2.1),
+    fontSize: 15,
   },
   instructions: {
     marginLeft: 20,

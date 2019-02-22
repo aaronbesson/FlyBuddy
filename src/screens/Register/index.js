@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableOpacity, StatusBar,
-  Text, Image, Alert} from 'react-native';
-import {w, h, totalSize} from '../../api/Dimensions';
+import {
+  StyleSheet, View, TouchableOpacity, StatusBar, ImageBackground, KeyboardAvoidingView,
+  Text, Image, Alert
+} from 'react-native';
+import { w, h, totalSize } from '../../api/Dimensions';
 import InputField from '../../components/InputField';
 import Continue from './Continue';
 import Firebase from "../../api/Firebase";
@@ -34,7 +36,7 @@ export default class Register extends Component {
       isPasswordCorrect: password === '',
       isRepeatCorrect: repeat === '' || repeat !== password,
     }, () => {
-      if(name !== '' && email !== '' && password !== '' && (repeat !== '' && repeat === password)){
+      if (name !== '' && email !== '' && password !== '' && (repeat !== '' && repeat === password)) {
         this.createFireBaseAccount(name, email, password);
       } else {
         console.warn('Fill up all fields correctly');
@@ -46,7 +48,7 @@ export default class Register extends Component {
     this.setState({ isCreatingAccount: true });
     Firebase.createFirebaseAccount(name, email, password)
       .then(result => {
-        if(result) this.props.navigation.navigate('Home');
+        if (result) this.props.navigation.navigate('Home');
         Alert.alert('Please verify your email and phone number');
       });
   };
@@ -62,77 +64,88 @@ export default class Register extends Component {
         this.password.input.focus();
         break;
       case 'Password':
-        this.setState({ isPasswordCorrect: this.password.getInputValue() === '',
+        this.setState({
+          isPasswordCorrect: this.password.getInputValue() === '',
           isRepeatCorrect: (this.repeat.getInputValue() !== ''
-            && this.repeat.getInputValue() !== this.password.getInputValue()) });
+            && this.repeat.getInputValue() !== this.password.getInputValue())
+        });
         this.repeat.input.focus();
         break;
       default:
-        this.setState({ isRepeatCorrect: (this.repeat.getInputValue() === ''
-            || this.repeat.getInputValue() !== this.password.getInputValue()) });
+        this.setState({
+          isRepeatCorrect: (this.repeat.getInputValue() === ''
+            || this.repeat.getInputValue() !== this.password.getInputValue())
+        });
     }
   };
 
   render() {
-    return(
-      <KeyboardAwareScrollView style={styles.headerContainer}>
-      <Text style={styles.h2}>Welcome to the Bespoke Boilerplate</Text>
-       <StatusBar barStyle="light-content"/>
-      <Image style={{ position: 'absolute', top: -180, }}
-      source={require('../../../assets/logoanim/icon.png') } />
+    return (
       <View style={styles.container}>
-        <InputField
-          placeholder="Name"
-          autoCapitalize="words"
-          error={this.state.isNameCorrect}
-          style={styles.input}
-          focus={this.changeInputFocus}
-          ref={ref => this.name = ref}
-          icon={person}
-        />
-        <InputField
-          placeholder="Email"
-          keyboardType="email-address"
-          error={this.state.isEmailCorrect}
-          style={styles.input}
-          focus={this.changeInputFocus}
-          ref={ref => this.email = ref}
-          icon={email}
-        />
-        <InputField
-          placeholder="Password"
-          error={this.state.isPasswordCorrect}
-          style={styles.input}
-          focus={this.changeInputFocus}
-          ref={ref => this.password = ref}
-          secureTextEntry={true}
-          icon={password}
-        />
-        <InputField
-          placeholder="Repeat Password"
-          error={this.state.isRepeatCorrect}
-          style={styles.input}
-          secureTextEntry={true}
-          returnKeyType="done"
-          blurOnSubmit={true}
-          focus={this.changeInputFocus}
-          ref={ref => this.repeat = ref}
-          icon={repeat}
-        />
-        <Continue isCreating={this.state.isCreatingAccount}
-        click={this.createUserAccount}/>
-        <View style={styles.textContainer}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Welcome')}
-          style={styles.touchable} activeOpacity={0.6}>
-            <Text style={styles.createAccount}>Already Registered</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgotPassword')}
-          style={styles.touchable} activeOpacity={0.6}>
-            <Text style={styles.forgotPassword}>Forgot Password</Text>
-          </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView style={styles.headerContainer}>
+          <ImageBackground
+            style={{
+              flex: 1
+            }}
+            source={require('../../../assets/images/daniel-olah-1113181-unsplash.jpg')}
+          >
+            <Text style={styles.h2}>Welcome to FlyBuddy</Text>
+            <StatusBar barStyle="light-content" />
+            <View style={styles.container}>
+              <InputField
+                placeholder="Name"
+                autoCapitalize="words"
+                error={this.state.isNameCorrect}
+                style={styles.input}
+                focus={this.changeInputFocus}
+                ref={ref => this.name = ref}
+                icon={person}
+              />
+              <InputField
+                placeholder="Email"
+                keyboardType="email-address"
+                error={this.state.isEmailCorrect}
+                style={styles.input}
+                focus={this.changeInputFocus}
+                ref={ref => this.email = ref}
+                icon={email}
+              />
+              <InputField
+                placeholder="Password"
+                error={this.state.isPasswordCorrect}
+                style={styles.input}
+                focus={this.changeInputFocus}
+                ref={ref => this.password = ref}
+                secureTextEntry={true}
+                icon={password}
+              />
+              <InputField
+                placeholder="Repeat Password"
+                error={this.state.isRepeatCorrect}
+                style={styles.input}
+                secureTextEntry={true}
+                returnKeyType="done"
+                blurOnSubmit={true}
+                focus={this.changeInputFocus}
+                ref={ref => this.repeat = ref}
+                icon={repeat}
+              />
+              <Continue isCreating={this.state.isCreatingAccount}
+                click={this.createUserAccount} />
+              <View style={styles.textContainer}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Welcome')}
+                  style={styles.touchable} activeOpacity={0.6}>
+                  <Text style={styles.createAccount}>Already Registered</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                  style={styles.touchable} activeOpacity={0.6}>
+                  <Text style={styles.forgotPassword}>Forgot Password</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ImageBackground>
+        </KeyboardAvoidingView>
       </View>
-      </KeyboardAwareScrollView>
     )
   }
 }
@@ -155,7 +168,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   signIn: {
-    color:'#3399ff',
+    color: '#3399ff',
     fontSize: totalSize(2),
     fontWeight: '700',
   },
@@ -171,31 +184,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 0,
-},
-createAccount: {
-  color:'#3399ff',
-  textAlign: 'center',
-  fontSize: totalSize(2),
-  fontWeight: '600',
-},
-forgotPassword: {
-  color:'#3399ff',
-  textAlign: 'center',
-  fontSize: totalSize(2),
-  fontWeight: '600',
-},
-textContainer: {
-  width: w(100),
-  flexDirection: 'row',
-  marginTop: h(2),
-},
-logo: {
-  marginVertical: 0,
-},
-h2: {
-  fontSize: 32,
-  color: '#fff',
-  padding: 40,
-  textAlign: 'center',
-},
+  },
+  createAccount: {
+    color: '#3399ff',
+    textAlign: 'center',
+    fontSize: totalSize(2),
+    fontWeight: '600',
+  },
+  forgotPassword: {
+    color: '#3399ff',
+    textAlign: 'center',
+    fontSize: totalSize(2),
+    fontWeight: '600',
+  },
+  textContainer: {
+    width: w(100),
+    flexDirection: 'row',
+    marginTop: h(2),
+  },
+  logo: {
+    marginVertical: 0,
+  },
+  h2: {
+    fontSize: 32,
+    color: '#fff',
+    padding: 40,
+    textAlign: 'center',
+  },
 });

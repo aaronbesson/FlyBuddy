@@ -7,31 +7,26 @@ import Feather from '@expo/vector-icons/Feather';
 
 const Weather = ({ weather, temperature }) => {
   return (
-    <View
-      style={[
-        styles.weatherContainer,
-        { backgroundColor: 'black' }
-      ]}
-    >
+    <View style={styles.weatherContainer}>
       <View style={styles.headerContainer}>
-        <View style={{ margin: 20 }}>
-
-        </View>
 
         <View style={styles.bodyContainer}>
 
-          <View style={{ position: 'absolute', right: 10, top: -10, }}>
+          <View style={{ position: 'absolute', right: 10, top: 0, alignItems: 'center', height: 48 }}>
             <View style={{ flexDirection: 'row' }}>
-              <View style={{ margin: 10 }}><Feather
-                size={24}
-                name={weatherConditions[weather].icon}
-                color={'#fff'}
-              /></View>
+              <View style={{ padding: 6 }}>
+                <Feather
+                  size={24}
+                  name={weatherConditions[weather].icon}
+                  color={'#fff'}
+                /></View>
               <View>
                 <Text style={styles.tempText}>{temperature}˚</Text>
-                <Text style={styles.title}>{weatherConditions[weather].title}</Text></View>
+              </View>
             </View>
+            <Text style={styles.title}>{weatherConditions[weather].title}</Text>
           </View>
+
         </View>
 
       </View>
@@ -46,7 +41,6 @@ Weather.propTypes = {
 
 const styles = StyleSheet.create({
   weatherContainer: {
-    paddingTop: 20,
     flex: 1
   },
   headerContainer: {
@@ -54,9 +48,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tempText: {
-    fontSize: 36,
+    fontSize: 28,
     color: '#fff',
-    fontWeight: '200',
+    fontWeight: '300',
   },
   bodyContainer: {
     flex: 2,
@@ -64,9 +58,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   title: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '400',
-    color: '#fff'
+    color: '#fff',
   },
   subtitle: {
     fontSize: 10,

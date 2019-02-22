@@ -7,7 +7,6 @@ const { Lottie } = DangerZone;
 import { API_KEY } from '../utils/WeatherAPIKey';
 
 import Weather from './Weather';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default class WeatherWidget extends React.Component {
@@ -46,33 +45,32 @@ export default class WeatherWidget extends React.Component {
                 });
             });
     }
-
-
     render() {
-
         const { isLoading, weatherCondition, temperature } = this.state;
         return (
             <View style={styles.container}>
-                <View style={{ width: '60%', backgroundColor: 'black', paddingTop: 40, }}>
-                    <View style={{ flexDirection: 'row', marginBottom: 40, }}>
+                <View style={{ backgroundColor: 'black', flexDirection: 'row', marginTop: 40 }}>
+                    <View style={{ width: '60%', flexDirection: 'row', }}>
                         <View style={styles.circle}>
                             <MaterialCommunityIcons name="airplane-takeoff" color="black" size={24} />
                         </View>
-
                         <View>
                             <Text style={styles.heading}>Departures</Text>
                             <Text style={{ color: 'white', fontWeight: '200', fontSize: 12 }}>Piarco International Airport</Text>
                         </View>
                     </View>
-                </View>
-                <View style={{ width: '40%' }}>
-                    {isLoading ? (
-                        <View style={styles.loadingContainer}>
+
+                    <View style={{ width: '40%', justifyContent: 'flex-end' }}>
+                        {isLoading ? (
                             <Text style={styles.loadingText}>Fetching your weather</Text>
-                        </View>
-                    ) : (
-                            <Weather weather={weatherCondition} temperature={temperature} />
-                        )}</View>
+                        ) : (
+                                <Weather weather={weatherCondition} temperature={temperature} />
+                            )}
+                    </View>
+
+
+
+                </View>
             </View>
         );
     }
@@ -80,14 +78,14 @@ export default class WeatherWidget extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 10,
         width: '100%',
         flexDirection: 'row',
         backgroundColor: 'black',
-        height: 130,
+        paddingBottom: 20,
     },
     loadingText: {
-        fontSize: 30
+        fontSize: 30,
+        display: 'none',
     },
     heading: {
         marginTop: 0,

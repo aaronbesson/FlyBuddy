@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   inputText: {
     color: '#646464',
     flex: 1,
-    fontSize: totalSize(2.1),
+    fontSize: 16,
     marginLeft: w(3),
   },
   icon: {

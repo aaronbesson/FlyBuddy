@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, Text, TextInput, Image, StyleSheet, TouchableOpacity, } from 'react-native';
 import { w, h, totalSize } from "../../api/Dimensions";
-import {
-    RkButton,
-    RkStyleSheet,
-} from 'react-native-ui-kitten';
 import InputField from '../../components/InputField';
 import firebase from 'firebase';
 import { Listitem, Avatar, Badge, Header, Icon, } from 'react-native-elements';
@@ -69,11 +65,11 @@ export default class VerifyPhone extends Component {
 
         return (
             <View style={styles.headerContainer}>
-            <View style={styles.container}>
+                <View style={styles.container}>
                     <View style={styles.row}>
                         <View style={styles.buttons}>
                         </View>
-                        <RkButton style={{ height: 120, width: 120, backgroundColor: 'transparent', }}
+                        <Button style={{ height: 120, width: 120, backgroundColor: 'transparent', }}
                             onPress={() => this.props.change('profile')()}
                         >
                             <Icon
@@ -82,10 +78,10 @@ export default class VerifyPhone extends Component {
                                 size={100}
 
                             />
-                        </RkButton>
+                        </Button>
                         <View style={styles.buttons}>
-                            <RkButton style={[styles.imgbutton, styles.marginTop50]}>
-                            </RkButton>
+                            <Button style={[styles.imgbutton, styles.marginTop50]}>
+                            </Button>
                         </View>
                     </View>
                     <Text style={styles.forgot}>Verify Mobile Number</Text>
@@ -126,12 +122,12 @@ export default class VerifyPhone extends Component {
             <View style={styles.container}>
                 <View style={styles.row}>
                     <View style={styles.buttons}>
-                        <RkButton style={[styles.imgbutton, styles.marginTop50]}
+                        <Button style={[styles.imgbutton, styles.marginTop50]}
                             onPress={this.props.change('dash')}
                         >
-                        </RkButton>
+                        </Button>
                     </View>
-                    <RkButton style={{ height: 120, width: 120, backgroundColor: 'transparent', }}
+                    <Button style={{ height: 120, width: 120, backgroundColor: 'transparent', }}
                         onPress={() => this.props.change('profile')()}
                     >
                         <Icon
@@ -147,10 +143,10 @@ export default class VerifyPhone extends Component {
                             <Text style={{ color: 'white', fontWeight: '900', fontSize: 21, }}>3</Text>
                         </Badge>
 
-                    </RkButton>
+                    </Button>
                     <View style={styles.buttons}>
-                        <RkButton style={[styles.imgbutton, styles.marginTop50]}>
-                        </RkButton>
+                        <Button style={[styles.imgbutton, styles.marginTop50]}>
+                        </Button>
                     </View>
                 </View>
                 <Text>Enter verification code below:</Text>
@@ -182,7 +178,7 @@ export default class VerifyPhone extends Component {
                         <View style={styles.row}>
                             <View style={styles.buttons}>
                             </View>
-                            <RkButton style={{ height: 120, width: 120, backgroundColor: 'transparent', }}
+                            <Button style={{ height: 120, width: 120, backgroundColor: 'transparent', }}
                                 onPress={() => this.props.change('profile')()}
                             >
                                 <Icon
@@ -198,10 +194,10 @@ export default class VerifyPhone extends Component {
                                     <Text style={{ color: 'white', fontWeight: '900', fontSize: 21, }}>3</Text>
                                 </Badge>
 
-                            </RkButton>
+                            </Button>
                             <View style={styles.buttons}>
-                                <RkButton style={[styles.imgbutton, styles.marginTop50]}>
-                                </RkButton>
+                                <Button style={[styles.imgbutton, styles.marginTop50]}>
+                                </Button>
                             </View>
                         </View>
                         <Text style={{ fontSize: 25 }}>Signed In!</Text>

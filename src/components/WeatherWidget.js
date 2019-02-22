@@ -8,6 +8,7 @@ import { API_KEY } from '../utils/WeatherAPIKey';
 
 import Weather from './Weather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { NONAME } from 'dns';
 
 export default class WeatherWidget extends React.Component {
 
@@ -52,8 +53,8 @@ export default class WeatherWidget extends React.Component {
     const { isLoading, weatherCondition, temperature } = this.state;
     return (
       <View style={styles.container}>
-        <View style={{ width: '60%', backgroundColor: 'black', paddingTop: 40, }}>
-          <View style={{ flexDirection: 'row', marginBottom: 40, }}>
+        <View style={{ width: '60%', backgroundColor: 'black', paddingTop: 20, }}>
+          <View style={{ flexDirection: 'row', }}>
             <View style={styles.circle}>
               <FontAwesome name="plane" color="black" size={21} />
             </View>
@@ -66,8 +67,8 @@ export default class WeatherWidget extends React.Component {
         </View>
         <View style={{ width: '40%' }}>
           {isLoading ? (
-            <View style={styles.loadingContainer}>
-              <Text style={styles.loadingText}>Fetching your weather</Text>
+            <View style={{ display: 'none' }}>
+              <Text style={{ display: 'none' }}>Fetching your weather</Text>
             </View>
           ) : (
               <Weather weather={weatherCondition} temperature={temperature} />
@@ -83,10 +84,10 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     backgroundColor: 'black',
-    height: 120,
   },
   loadingText: {
-    fontSize: 30
+    fontSize: 10,
+    display: 'none',
   },
   heading: {
     marginTop: 0,

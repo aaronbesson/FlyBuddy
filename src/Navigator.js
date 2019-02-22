@@ -21,7 +21,6 @@ import VerifyEmail from './screens/VerifyEmail';
 import VerifyPhone from './screens/VerifyPhone';
 import MyFlights from './screens/MyFlights';
 import Register from './screens/Register';
-import Identity from './screens/Identity';
 import ForgotPassword from './screens/ForgotPassword';
 import Header from './components/Header';
 import HeaderArrive from './components/HeaderArrive';
@@ -40,17 +39,9 @@ const AppMainTab = TabNavigator({
         <MaterialCommunityIcons name="airplane-takeoff" color={tintColor} size={32} />
       ),
       headerStyle: {
-        backgroundColor: 'transparent',
-        borderBottomWidth: 0,
-        display: 'none',
+        backgroundColor: '#000', // this will handle the cutOff at the top the screen
       },
       header: props => <Header {...props} />,
-      headerVisible: false,
-      headerTitle: null,
-      headerTitleStyle: {
-        color: colors.TEXT,
-      },
-      headerLeft: <HamburgerIcon onPress={() => navigation.navigate('DrawerOpen')} />,
     })
   },
   Favorites: {
@@ -178,7 +169,6 @@ const AppMainStack = StackNavigator({
   Settings: { screen: SettingsScreen },
   Email: { screen: VerifyEmail },
   Phone: { screen: VerifyPhone },
-  Identity: { screen: Identity },
   MyFlights: { screen: MyFlights },
   Register: { screen: Register },
   ForgotPassword: { screen: ForgotPassword },
@@ -279,6 +269,7 @@ const Navigator = TabNavigator({
   Welcome: { screen: WelcomeScreen },
   Main: { screen: AppDrawer },
   Register: { screen: Register },
+  ForgotPassword: { screen: ForgotPassword }
 }, {
     navigationOptions: {
       tabBarVisible: false,
