@@ -281,7 +281,7 @@ const AppDrawer = DrawerNavigator({
   });
 
 const Navigator = TabNavigator({
-  Welcome: { screen: WelcomeScreen },
+  // Welcome: { screen: WelcomeScreen },
   Main: { screen: AppDrawer },
   Register: { screen: Register },
   ForgotPassword: { screen: ForgotPassword }

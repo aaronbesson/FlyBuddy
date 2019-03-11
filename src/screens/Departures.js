@@ -36,7 +36,7 @@ export default class Departures extends React.Component {
 
 
   componentDidMount() {
-    return fetch('http://aviation-edge.com/v2/public/timetable?key=775ce7-ca82c1&iataCode=POS&type=departure')
+    return fetch('http://aviation-edge.com/v2/public/timetable?key=b71f2c-84c143&iataCode=POS&type=departure')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
