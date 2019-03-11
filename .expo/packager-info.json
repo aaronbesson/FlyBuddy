@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 41419,
-  "expoServerNgrokUrl": "https://bm-s6t.bespokett.flybuddy.exp.direct",
-  "packagerNgrokUrl": "https://packager.bm-s6t.bespokett.flybuddy.exp.direct",
-  "ngrokPid": 41433,
-  "devToolsPort": 19007
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "devToolsPort": 19002
 }

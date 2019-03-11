@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ScrollView,
+  StatusBar,
   View,
   Image, Text,
   StyleSheet, hairlineWidth, TouchableOpacity,
@@ -15,7 +16,7 @@ export default class Home extends React.Component {
     if (this.state.isSignedIn) {
       const user = firebase.auth().currentUser || {};
       return <View style={{ flex: 1 }}>
-
+        <StatusBar barStyle="light-content" />
         <TabBar />
 
 

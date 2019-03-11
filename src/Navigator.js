@@ -34,7 +34,7 @@ const AppMainTab = TabNavigator({
       drawerIcon: ({ tintColor }) => (
         <MaterialCommunityIcons name="airplane-takeoff" color={tintColor} size={32} />
       ),
-      tabBarLabel: 'Departures',
+      tabBarLabel: 'Depart',
       tabBarIcon: ({ tintColor }) => (
         <MaterialCommunityIcons name="airplane-takeoff" color={tintColor} size={32} />
       ),
@@ -73,19 +73,20 @@ const AppMainTab = TabNavigator({
     navigationOptions: ({ navigation }) => ({
       drawerLabel: 'Shopping',
       drawerIcon: ({ tintColor }) => (
-        <FontAwesome name="shopping-basket" size={28} color={tintColor} />
+        <FontAwesome name="shopping-basket" size={24} color={tintColor} />
       ),
-      tabBarLabel: 'Shopping',
+      tabBarLabel: 'Shop',
       tabBarIcon: ({ tintColor }) => (
-        <FontAwesome name="shopping-basket" size={28} color={tintColor} />
+        <FontAwesome name="shopping-basket" size={24} color={tintColor} />
       ),
       headerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#2e2e2e',
+        borderBottomWidth: 0,
       },
       headerTitle: 'Duty Free Shopping',
-      headerTintColor: colors.BLUE,
+      headerTintColor: 'white',
       headerTitleStyle: {
-        color: colors.TEXT,
+        color: 'white',
       },
       headerLeft: <HamburgerIcon onPress={() => navigation.navigate('DrawerOpen')} />,
       headerRight: <SettingsIcon onPress={() => navigation.navigate('SelectCamera')} />,
@@ -99,17 +100,18 @@ const AppMainTab = TabNavigator({
       drawerIcon: ({ tintColor }) => (
         <FontAwesome name="ticket" size={28} color={tintColor} />
       ),
-      tabBarLabel: 'Travel Agents',
+      tabBarLabel: 'Travel',
       tabBarIcon: ({ tintColor }) => (
         <FontAwesome name="ticket" size={28} color={tintColor} />
       ),
       headerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#2e2e2e',
+        borderBottomWidth: 0,
       },
       headerTitle: 'Travel Agents',
-      headerTintColor: colors.BLUE,
+      headerTintColor: 'white',
       headerTitleStyle: {
-        color: colors.TEXT,
+        color: 'white',
       },
       headerLeft: <HamburgerIcon onPress={() => navigation.navigate('DrawerOpen')} />,
       headerRight: <SettingsIcon onPress={() => navigation.navigate('SelectCamera')} />,
@@ -117,7 +119,7 @@ const AppMainTab = TabNavigator({
   },
 
   Rentals: {
-    screen: ProfileScreen,
+    screen: MyFlights,
     navigationOptions: ({ navigation }) => ({
       drawerLabel: 'Rentals',
       drawerIcon: ({ tintColor }) => (
@@ -128,9 +130,10 @@ const AppMainTab = TabNavigator({
         <MaterialCommunityIcons name="car-side" size={36} color={tintColor} />
       ),
       headerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#2e2e2e',
+        borderBottomWidth: 0,
       },
-      headerTitle: 'Profile',
+      headerTitle: 'Rentals',
       headerTintColor: colors.BLUE,
       headerTitleStyle: {
         color: colors.TEXT,
@@ -143,24 +146,36 @@ const AppMainTab = TabNavigator({
 }, {
     tabBarOptions: {
       activeTintColor: 'white',
-      inactiveTintColor: colors.TEXT,
+      inactiveTintColor: 'grey',
       inactiveBackgroundColor: '#212020',
       activeBackgroundColor: '#212020',
       showIcon: true,
-      showLabel: Platform.OS === 'ios',
+      iconStyle: {
+        width: 35,
+        height: 24
+      },
       indicatorStyle: {
-        backgroundColor: '#212020',
+        backgroundColor: '#003fd1',
+      },
+      tabStyle: {
+        flex: 1,
+        padding: 3,
       },
       style: {
         backgroundColor: '#212020',
         height: 68,
-        paddingVertical: 10,
+        paddingBottom: 10,
       },
       upperCaseLabel: false,
     },
+    labelStyle: {
+      fontSize: 10,
+    },
+    safeAreaInset: { bottom: 'always', top: 'never' },
     tabBarPosition: 'bottom',
-    swipeEnabled: false,
-    animationEnabled: false,
+    allowFontScaling: true,
+    swipeEnabled: true,
+    animationEnabled: true,
   });
 
 const AppMainStack = StackNavigator({

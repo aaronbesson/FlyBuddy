@@ -21,7 +21,7 @@ export default class Customs extends Component {
         this.setState({ modalVisible: visible });
     };
     componentDidMount() {
-        fetch(`http://mytrini.com/wp-json/wp/v2/posts/?_embed&categories=115`)
+        fetch(`http://www.verufied.com/82h23/wp-json/wp/v2/posts/?_embed&categories=4`)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
